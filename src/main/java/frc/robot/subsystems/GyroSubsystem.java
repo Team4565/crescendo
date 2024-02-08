@@ -3,32 +3,36 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Constants;
-import edu.wpi.first.wpilibj.simulation.EncoderSim;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class DrivetrainSubsystem extends SubsystemBase {
-  
-  private static DifferentialDrive diffDrive;
- 
-  private final WPI_VictorSPX leftLead;
-  private final WPI_VictorSPX rightLead; 
-  private final WPI_VictorSPX leftFollower;
-  private final WPI_VictorSPX rightFollower; 
+public class GyroSubsystem extends SubsystemBase {
+  /** Creates a new ExampleSubsystem. */
+  AHRS m_gyro;
 
+  public GyroSubsystem() {
+    m_gyro = new AHRS(SPI.Port.kMXP) ;
+  }
 
-  public DrivetrainSubsystem() {
-    leftLead = new WPI_VictorSPX(8);
-    rightLead = new WPI_VictorSPX(6);
-    leftFollower = new WPI_VictorSPX(7);
-    rightFollower = new WPI_VictorSPX(9);
+  public double getAngle(){
+    return m_gyro.getAngle();
+  }
+
+  public double getPitch(){
+    return m_gyro.getPitch();
+  }
+
+  public double getRoll() {
+    return m_gyro.getRoll();
+  }
+
+  public void resetYaw(){
+    m_gyro.zeroYaw();
   }
 
   /**
@@ -63,10 +67,5 @@ public class DrivetrainSubsystem extends SubsystemBase {
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
-  }
-
-  public Object teleopDrive(double leftY, double leftX) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'teleopDrive'");
   }
 }
