@@ -4,36 +4,23 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import com.kauailabs.navx.frc.AHRS;
-import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class GyroSubsystem extends SubsystemBase {
-  /** Creates a new ExampleSubsystem. */
-  AHRS m_gyro;
+public class MotorForShooter extends SubsystemBase {
 
-  public GyroSubsystem() {
-    m_gyro = new AHRS(SPI.Port.kMXP) ;
-  }
+  private final PWMSparkMax shooterMotor;
+  private final PWMSparkMax shooterMotorTwo;
 
-  public double getAngle(){
-    return m_gyro.getAngle();
-  }
+  public MotorForShooter() {
+    shooterMotor = new PWMSparkMax(0);
+    shooterMotorTwo = new PWMSparkMax(0);
 
-  public double getPitch(){
-    return m_gyro.getPitch();
-  }
 
-  public double getRoll() {
-    return m_gyro.getRoll();
-  }
-
-  public void resetYaw(){
-    m_gyro.zeroYaw();
+    
   }
 
   /**

@@ -15,5 +15,12 @@ package frc.robot;
 public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
+    public static final int kDriverControllerPortTwo = 1;
+  }
+
+  public static class HatchConstants {
+    public static final int kHatchSolenoidModule = 0;
+    public static final int[] kHatchSolenoidPorts = new int[] {0, 1};
+    public static final int[] kClimbSolenoidPorts = new int[] {2, 3};
   }
 }

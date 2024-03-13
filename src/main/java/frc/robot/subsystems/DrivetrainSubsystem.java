@@ -4,8 +4,11 @@
 
 package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -14,21 +17,48 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.simulation.EncoderSim;
 
+@SuppressWarnings("removal")
+
 public class DrivetrainSubsystem extends SubsystemBase {
   
   private static DifferentialDrive diffDrive;
  
-  private final WPI_VictorSPX leftLead;
-  private final WPI_VictorSPX rightLead; 
-  private final WPI_VictorSPX leftFollower;
-  private final WPI_VictorSPX rightFollower; 
+  private final WPI_TalonFX leftLead;
+  private final WPI_TalonFX rightLead; 
+  private final WPI_TalonFX leftFollower;
+  private final WPI_TalonFX rightFollower;
+  
+  private final Compressor compressor = new Compressor(PneumaticsModuleType.CTREPCM);
+
+  //private final PWMSparkMax shooterMotor;
+  //private final PWMSparkMax shooterMotorTwo;
+
+  private String driveMode;
 
 
   public DrivetrainSubsystem() {
-    leftLead = new WPI_VictorSPX(8);
-    rightLead = new WPI_VictorSPX(6);
-    leftFollower = new WPI_VictorSPX(7);
-    rightFollower = new WPI_VictorSPX(9);
+    //shooterMotor = new PWMSparkMax(0);
+    //shooterMotorTwo = new PWMSparkMax(0);
+
+
+
+    leftLead = new WPI_TalonFX(1);
+    rightLead = new WPI_TalonFX(3);
+    leftFollower = new WPI_TalonFX(2);
+    rightFollower = new WPI_TalonFX(4);
+
+    leftLead.setInverted(true);
+    leftFollower.setInverted(true);
+    
+
+    leftFollower.follow(leftLead);
+
+    
+    rightFollower.follow(rightLead);
+
+    diffDrive = new DifferentialDrive(leftLead, rightLead);
+
+    driveMode = "normal";
   }
 
   /**
@@ -55,6 +85,39 @@ public class DrivetrainSubsystem extends SubsystemBase {
     return false;
   }
 
+  public void updateDriveMode(String mode) {
+    driveMode = mode;
+  }
+
+  public void teleopDrive(double driveValue, double turnValue) {
+    switch(driveMode) {
+      case "max":
+        diffDrive.arcadeDrive(driveValue * .80, turnValue * 0.75);
+        diffDrive.arcadeDrive(driveValue * .85, turnValue * 0.80);
+        diffDrive.arcadeDrive(driveValue * .90, turnValue * 0.85);
+        diffDrive.arcadeDrive(driveValue * .95, turnValue * 0.90);
+        diffDrive.arcadeDrive(driveValue, turnValue);
+      break;
+
+      /**case "fast":
+        diffDrive.arcadeDrive(driveValue * 0.80, turnValue * 0.80);
+      break; */
+
+      case "normal":
+        diffDrive.arcadeDrive(driveValue * 0.80, turnValue * 0.75);
+      break;
+
+      case "creep speed (slow)":
+        diffDrive.arcadeDrive(driveValue * 0.7 , turnValue * 0.65);
+      break;
+
+      case "no speed":
+        diffDrive.arcadeDrive(driveValue * 0 , turnValue * 0);
+      break;
+    }
+
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -65,8 +128,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run during simulation
   }
 
-  public Object teleopDrive(double leftY, double leftX) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'teleopDrive'");
+  public void setRaw(double driveValue, double turnValue){
+    diffDrive.arcadeDrive(driveValue, turnValue);
   }
+
 }

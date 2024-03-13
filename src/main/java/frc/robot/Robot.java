@@ -4,9 +4,16 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.RobotContainer;
+import frc.robot.subsystems.DrivetrainSubsystem;
+// import frc.robot.subsystems.Pneumatic;;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -19,6 +26,8 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
+  
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -27,7 +36,8 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer();
+    m_robotContainer = new RobotContainer(); 
+
   }
 
   /**
@@ -77,11 +87,24 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+
+
+
   }
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+
+      /**if (m_XboxController.getLeftBumperPressed()) {
+        m_pneumatic.m_pneumaticsSubsystem.set(Value.kForward);
+      }
+      else {
+        m_pneumatic.m_pneumaticsSubsystem.set(Value.kReverse);
+      }*/
+
+
+  }
 
   @Override
   public void testInit() {
