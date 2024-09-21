@@ -22,6 +22,7 @@ import frc.robot.Constants.HatchConstants;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.kForward;
 import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.kReverse;
+import edu.wpi.first.wpilibj.Compressor;
 
 
 /** An example command that uses an example subsystem. */
@@ -30,6 +31,7 @@ public class HatchSubsystem extends SubsystemBase {
 
   private final DoubleSolenoid m_hatchSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, HatchConstants.kHatchSolenoidPorts[0], HatchConstants.kHatchSolenoidPorts[1]);
 
+  // private final Compressor compressor;
   public void grabHatch() {
     m_hatchSolenoid.set(kForward);
   }
@@ -49,38 +51,38 @@ public class HatchSubsystem extends SubsystemBase {
 
 
 
-  //public boolean getCompressor(){
-  //  return compressor.getCompressor();
-  //}
+  /*public boolean getCompressor(){
+    return compressor.getCompressor();
+  }
 
-  // public boolean getPressureSwitch(){
-  //   return compressor.getPressureSwitch();
-  // }
+  public boolean getPressureSwitch(){
+     return compressor.getPressureSwitch();
+   }
 
-  // public void enableCompressorHybrid(){
-  //   compressor.enableCompressorHybrid(40, 100);
-  // }
+   public void enableCompressorHybrid(){
+     return compressor.enableCompressorHybrid(40, 100);
+   }
 
-  // public double getCompressorCurrent(){
-  //   return compressor.getCompressorCurrent();
-  // }
+   public double getCompressorCurrent(){
+     return compressor.getCompressorCurrent();
+   }
 
-  // public double getPressure(){
-  //   return compressor.getPressure(0);
-  // }
-
-
-  //public double
-
-  //public double
-
-  //public double
-
-  //public int
+   public double getPressure(){
+     return compressor.getPressure(0);
+   }
 
 
+  public double
 
-  //public
+  public double
+
+  public double
+
+  public int
+
+
+
+  public
 
   /**
    * Creates a new ExampleCommand.
@@ -89,17 +91,17 @@ public class HatchSubsystem extends SubsystemBase {
    */
   
 
-  // @Override
-  // public void periodic(){
-  //   SmartDashboard.getBoolean("Presure Switch T/F:", getPressureSwitch());
-  //   SmartDashboard.putNumber("Compressor Current:", getCompressorCurrent());
-  //   SmartDashboard.putNumber("Current Pressure:", getPressure());
+   /*@Override
+   public void periodic(){
+     SmartDashboard.getBoolean("Presure Switch T/F:", getPressureSwitch());
+     SmartDashboard.putNumber("Compressor Current:", getCompressorCurrent());
+     SmartDashboard.putNumber("Current Pressure:", getPressure());
 
-  // }
+   } */
 
-  // public void teleopPeriodic(){
+   public void teleopPeriodic(){
 
-  // }
+   }
 
 }
 

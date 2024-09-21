@@ -40,8 +40,4 @@ public class ArmUpDownOppSubsystem extends SubsystemBase {
     ArmUpDownOpp.setInverted(upDownDirectionOpp);
   }
 
-  
-
-
-
 }

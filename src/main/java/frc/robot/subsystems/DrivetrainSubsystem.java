@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
+import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -22,14 +24,14 @@ import edu.wpi.first.wpilibj.simulation.EncoderSim;
 public class DrivetrainSubsystem extends SubsystemBase {
   
   private static DifferentialDrive diffDrive;
+
+  private final Compressor compressor = new Compressor(PneumaticsModuleType.CTREPCM);
  
   private final WPI_TalonFX leftLead;
   private final WPI_TalonFX rightLead; 
   private final WPI_TalonFX leftFollower;
   private final WPI_TalonFX rightFollower;
   
-  private final Compressor compressor = new Compressor(PneumaticsModuleType.CTREPCM);
-
   //private final PWMSparkMax shooterMotor;
   //private final PWMSparkMax shooterMotorTwo;
 
@@ -46,6 +48,19 @@ public class DrivetrainSubsystem extends SubsystemBase {
     rightLead = new WPI_TalonFX(3);
     leftFollower = new WPI_TalonFX(2);
     rightFollower = new WPI_TalonFX(4);
+
+    CurrentLimitsConfigs config = new CurrentLimitsConfigs();
+    SupplyCurrentLimitConfiguration configSupply = new SupplyCurrentLimitConfiguration();
+    config.StatorCurrentLimit = 40;
+    config.SupplyCurrentLimit = 40;
+    config.StatorCurrentLimitEnable = true;
+    config.SupplyCurrentLimitEnable = true;
+
+    leftLead.configSupplyCurrentLimit(configSupply);
+    leftFollower.configSupplyCurrentLimit(configSupply);
+    rightLead.configSupplyCurrentLimit(configSupply);
+    rightFollower.configSupplyCurrentLimit(configSupply);
+
 
     leftLead.setInverted(true);
     leftFollower.setInverted(true);
@@ -108,7 +123,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
       break;
 
       case "creep speed (slow)":
-        diffDrive.arcadeDrive(driveValue * 0.7 , turnValue * 0.65);
+        diffDrive.arcadeDrive(driveValue * 0.5 , turnValue * 0.65);
       break;
 
       case "no speed":

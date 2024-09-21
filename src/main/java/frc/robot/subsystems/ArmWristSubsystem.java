@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.math.controller.PIDController;
 
@@ -30,6 +32,7 @@ public class ArmWristSubsystem extends SubsystemBase {
   public ArmWristSubsystem() {
 
     ArmWrist = new WPI_TalonFX(6);
+    ArmWrist.setNeutralMode(NeutralMode.Brake);
     
   
 

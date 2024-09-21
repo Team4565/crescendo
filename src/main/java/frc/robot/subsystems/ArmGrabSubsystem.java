@@ -25,24 +25,24 @@ import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.kReverse;
 
 
 /** An example command that uses an example subsystem. */
-public class ClimbSubsystem extends SubsystemBase {
+public class ArmGrabSubsystem extends SubsystemBase {
 @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
-  private final DoubleSolenoid m_climbSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 2, 3);
+  private final DoubleSolenoid m_armSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 6, 7);
 
   public void grabHatch() {
-    m_climbSolenoid.set(kForward);
+    m_armSolenoid.set(kForward);
   }
 
   public void releaseHatch() {
-    m_climbSolenoid.set(kReverse);
+    m_armSolenoid.set(kReverse);
   }
 
   @Override
   public void initSendable(SendableBuilder builder){
     super.initSendable(builder);
 
-    builder.addBooleanProperty("extended", () -> m_climbSolenoid.get() == kForward, null);
+    builder.addBooleanProperty("extended", () -> m_armSolenoid.get() == kForward, null);
   }
 
 
