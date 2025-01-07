@@ -22,6 +22,7 @@ public class ReleaseHatch extends InstantCommand {
       super(doubleSolenoidRelease::releaseHatch, doubleSolenoidRelease);
     
     // Use addRequirements() here to declare subsystem dependencies.
-    
+
+      addRequirements(doubleSolenoidRelease);
   }
 }

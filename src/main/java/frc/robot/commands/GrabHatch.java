@@ -25,7 +25,7 @@ public class GrabHatch extends Command {
     m_hatchSubsystem =  doubleSolenoidGrab;
   
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_hatchSubsystem);
+    addRequirements(doubleSolenoidGrab);
   }
 
 

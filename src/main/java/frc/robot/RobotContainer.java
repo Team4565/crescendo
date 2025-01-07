@@ -27,6 +27,7 @@ import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ArmGrabSubsystem;
 import frc.robot.subsystems.ArmUpDownOppSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.MotorForShooter;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -111,6 +112,14 @@ public class RobotContainer {
 
   private final Command m_driveForTime = Autos.driveForTime(m_drivetrainSubsystem);
 
+  private final Command m_driveForTime2 = Autos.driveForTime2(m_drivetrainSubsystem);
+
+  private final Command m_releaseHatch = Autos.releaseHatch(m_hatchSubsystem);
+
+  private final Command m_grabHatch = Autos.grabHatch(m_hatchSubsystem);
+
+  private final Command m_motorForShooter = Autos.motorForTimeTest(m_MotorForShooter, m_hatchSubsystem, m_hatchSubsystem);
+
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
@@ -142,8 +151,12 @@ public class RobotContainer {
 
 
 
-
-    m_chooser.addOption("Mobility", m_driveForTime);
+    m_chooser.addOption("Release Hatch", m_releaseHatch);
+    m_chooser.addOption("Grab Hatch", m_grabHatch);
+    m_chooser.addOption("Backwards then forwards", m_driveForTime);
+    m_chooser.addOption("Forwards", m_driveForTime2);
+    m_chooser.addOption("Motor testin", m_motorForShooter);
+    
 
     SmartDashboard.putData(m_chooser);
   }
